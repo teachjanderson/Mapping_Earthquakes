@@ -33,10 +33,11 @@ let airportData = "https://raw.githubusercontent.com/teachjanderson/Mapping_Eart
 
 d3.json(airportData).then(function(data) {
     console.log(data);
-    console.log(data.features);
-    console.log(data.features.geometry);
-    // Creating the GeoJSON layer with the retrieved data.
-    L.geoJSON(data).addTo(map)
-    .bindPopup("<h2>" + data + ", ");
+// Creating the GeoJSON layer with the retrieved data.
+    L.geoJSON(data, {
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup("<h3> Airport Code: " + feature.properties.faa + "</h3> <hr><h3> Airport Name: " + feature.properties.name + "</h3>");
+        }
+    }).addTo(map)
 });
 
